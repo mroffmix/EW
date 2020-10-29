@@ -11,7 +11,7 @@ import SwiftUI
 struct EWApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainScreen(vm: DashboardVM(handler: HttpGetter(service: DataService())))
         }
     }
 }

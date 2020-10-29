@@ -3,16 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092BE1982549B5AA002945B8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092BE1972549B5AA002945B8 /* DataService.swift */; };
 		09404C9A254706E5008436E1 /* EWApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404C99254706E5008436E1 /* EWApp.swift */; };
 		09404C9C254706E5008436E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404C9B254706E5008436E1 /* ContentView.swift */; };
 		09404C9E254706E7008436E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09404C9D254706E7008436E1 /* Assets.xcassets */; };
 		09404CA1254706E7008436E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09404CA0254706E7008436E1 /* Preview Assets.xcassets */; };
 		09404CAC254706E7008436E1 /* EWTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404CAB254706E7008436E1 /* EWTests.swift */; };
 		09404CB7254706E7008436E1 /* EWUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404CB6254706E7008436E1 /* EWUITests.swift */; };
+		09404CC92547076C008436E1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 09404CC82547076C008436E1 /* SwiftSoup */; };
+		09404CCF25471DB6008436E1 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 09404CCE25471DB6008436E1 /* SwiftUICharts */; };
+		09404CF325471FB1008436E1 /* EWData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404CF225471FB1008436E1 /* EWData.swift */; };
+		09404D6525473C0E008436E1 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09404D6425473C0E008436E1 /* ParserTests.swift */; };
+		09DA61C925482E2500B5051F /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA61C825482E2500B5051F /* MainScreen.swift */; };
+		09DA62382548662B00B5051F /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA62372548662B00B5051F /* Line.swift */; };
+		09DA623D25487C2900B5051F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA623C25487C2800B5051F /* CardView.swift */; };
+		09DA62472548947000B5051F /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA62462548947000B5051F /* DashboardVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092BE1972549B5AA002945B8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		09404C96254706E5008436E1 /* EW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09404C99254706E5008436E1 /* EWApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EWApp.swift; sourceTree = "<group>"; };
 		09404C9B254706E5008436E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +55,12 @@
 		09404CB2254706E7008436E1 /* EWUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EWUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09404CB6254706E7008436E1 /* EWUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EWUITests.swift; sourceTree = "<group>"; };
 		09404CB8254706E7008436E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09404CF225471FB1008436E1 /* EWData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EWData.swift; sourceTree = "<group>"; };
+		09404D6425473C0E008436E1 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		09DA61C825482E2500B5051F /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		09DA62372548662B00B5051F /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		09DA623C25487C2800B5051F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		09DA62462548947000B5051F /* DashboardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09404CC92547076C008436E1 /* SwiftSoup in Frameworks */,
+				09404CCF25471DB6008436E1 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		092BE1962549B591002945B8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				092BE1972549B5AA002945B8 /* DataService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		09404C8D254706E5008436E1 = {
 			isa = PBXGroup;
 			children = (
@@ -95,11 +121,14 @@
 		09404C98254706E5008436E1 /* EW */ = {
 			isa = PBXGroup;
 			children = (
-				09404C99254706E5008436E1 /* EWApp.swift */,
-				09404C9B254706E5008436E1 /* ContentView.swift */,
+				092BE1962549B591002945B8 /* Service */,
 				09404C9D254706E7008436E1 /* Assets.xcassets */,
 				09404CA2254706E7008436E1 /* Info.plist */,
+				09404C99254706E5008436E1 /* EWApp.swift */,
+				09DA62442548937C00B5051F /* Views */,
+				09DA62452548939C00B5051F /* ViewModels */,
 				09404C9F254706E7008436E1 /* Preview Content */,
+				09404CF225471FB1008436E1 /* EWData.swift */,
 			);
 			path = EW;
 			sourceTree = "<group>";
@@ -115,6 +144,7 @@
 		09404CAA254706E7008436E1 /* EWTests */ = {
 			isa = PBXGroup;
 			children = (
+				09404D6425473C0E008436E1 /* ParserTests.swift */,
 				09404CAB254706E7008436E1 /* EWTests.swift */,
 				09404CAD254706E7008436E1 /* Info.plist */,
 			);
@@ -128,6 +158,25 @@
 				09404CB8254706E7008436E1 /* Info.plist */,
 			);
 			path = EWUITests;
+			sourceTree = "<group>";
+		};
+		09DA62442548937C00B5051F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09DA62372548662B00B5051F /* Line.swift */,
+				09DA623C25487C2800B5051F /* CardView.swift */,
+				09DA61C825482E2500B5051F /* MainScreen.swift */,
+				09404C9B254706E5008436E1 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		09DA62452548939C00B5051F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				09DA62462548947000B5051F /* DashboardVM.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +195,10 @@
 			dependencies = (
 			);
 			name = EW;
+			packageProductDependencies = (
+				09404CC82547076C008436E1 /* SwiftSoup */,
+				09404CCE25471DB6008436E1 /* SwiftUICharts */,
+			);
 			productName = EW;
 			productReference = 09404C96254706E5008436E1 /* EW.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +270,10 @@
 				Base,
 			);
 			mainGroup = 09404C8D254706E5008436E1;
+			packageReferences = (
+				09404CC72547076C008436E1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				09404CCD25471DB6008436E1 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 09404C97254706E5008436E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,8 +316,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09DA61C925482E2500B5051F /* MainScreen.swift in Sources */,
 				09404C9C254706E5008436E1 /* ContentView.swift in Sources */,
 				09404C9A254706E5008436E1 /* EWApp.swift in Sources */,
+				09404CF325471FB1008436E1 /* EWData.swift in Sources */,
+				09DA623D25487C2900B5051F /* CardView.swift in Sources */,
+				09DA62382548662B00B5051F /* Line.swift in Sources */,
+				09DA62472548947000B5051F /* DashboardVM.swift in Sources */,
+				092BE1982549B5AA002945B8 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09404D6525473C0E008436E1 /* ParserTests.swift in Sources */,
 				09404CAC254706E7008436E1 /* EWTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,7 +483,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EW/Preview Content\"";
-				DEVELOPMENT_TEAM = Z97DRS4UT9;
+				DEVELOPMENT_TEAM = 8GM57Z56RX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -427,7 +491,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ut.EW;
+				PRODUCT_BUNDLE_IDENTIFIER = ut.EWproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -441,7 +505,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EW/Preview Content\"";
-				DEVELOPMENT_TEAM = Z97DRS4UT9;
+				DEVELOPMENT_TEAM = 8GM57Z56RX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -449,7 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ut.EW;
+				PRODUCT_BUNDLE_IDENTIFIER = ut.EWproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -580,6 +644,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		09404CC72547076C008436E1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+		09404CCD25471DB6008436E1 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09404CC82547076C008436E1 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09404CC72547076C008436E1 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		09404CCE25471DB6008436E1 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09404CCD25471DB6008436E1 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 09404C8E254706E5008436E1 /* Project object */;
 }
