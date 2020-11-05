@@ -18,7 +18,8 @@ struct MainScreen: View {
     
     @State var scale: CGFloat = 0
     @State var opacity: CGFloat = 0
-    
+    @State private var segment = 0
+
     
     @ObservedObject var vm: DashboardVM
     
@@ -42,7 +43,11 @@ struct MainScreen: View {
     
     var body: some View {
         
-        ZStack {
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(color1)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.lightGray], for: .normal)
+        
+        return ZStack {
             Circle()
                 .fill(RadialGradient(gradient: Gradient(colors: [color2, color1]), center: .center, startRadius: width/8, endRadius: width))
                 .frame(width: width*2)
@@ -118,10 +123,22 @@ struct MainScreen: View {
                 HStack {
                     Spacer()
                 }.frame(width: width)
-                .padding(.top, 15)
+                //.padding(.top, 15)
                 
                 Spacer()
                 if !vm.isLoading {
+                    Picker(selection: $segment, label: Text("")) {
+                                    Text("1 Day").tag(0)
+                                    Text("7 Days").tag(1)
+                                    Text("30 Days").tag(2)
+                    }.onChange(of: segment) { value in
+                        print(value)
+                    }
+                    .pickerStyle(SegmentedPickerStyle()
+                                )
+                    .padding(.horizontal, 8)
+                    .frame(width: width)
+                    
                     VStack (alignment: .trailing, spacing: 2) {
                         Text("Max: \(strValue(vm.currentLegend.max)) \(vm.currentLegend.measure)")
                             .font(.callout)

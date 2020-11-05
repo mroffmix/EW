@@ -48,6 +48,12 @@ struct LegendDescription {
     var measure: String = ""
 }
 
+struct Charts {
+    var month: [Double] = []
+    var week: [Double] = []
+    var day: [Double] = []
+}
+
 class DashboardVM: ObservableObject {
     
     @Published var airData: [Double] = []
@@ -107,7 +113,7 @@ class DashboardVM: ObservableObject {
     
     func onAppear() {
         
-        handler.setPeriodFrom(days: -1)
+        handler.setPeriodFrom(days: -30)
         
         // Air data
         publisher = handler.getAirPublisher()
@@ -125,6 +131,7 @@ class DashboardVM: ObservableObject {
             currentLegend = airL
             
             isLoading = false
+            
             
         }).store(in: &subscriptions)
         

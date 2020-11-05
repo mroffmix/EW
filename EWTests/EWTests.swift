@@ -22,30 +22,18 @@ class EWTests: XCTestCase {
     
     func testHttpGetter() {
         
-        if let getter = HttpGetter(urlStr: "https://www.gkd.bayern.de") {
-            XCTAssertNotNil(getter)
-            getter.setPeriod(startDate: getter.setPeriodFrom(days: 10), endDate: Date())
-            
-            XCTAssertTrue(getter.url.absoluteString.contains("beginn="))
-            XCTAssertTrue(getter.url.absoluteString.contains("ende="))
-
-        } else {
-            XCTFail()
-        }
+        let getter = HttpGetter(service: DataService())
+        XCTAssertNotNil(getter)
+        
+        getter.setPeriodFrom(days: -10)
+        let airp = getter.getAirPublisher()
+        XCTAssertNotNil(airp)
+        
+        //            XCTAssertTrue(getter.url.absoluteString.contains("beginn="))
+        //            XCTAssertTrue(getter.url.absoluteString.contains("ende="))
+        
     }
     
-    func testHttpString() {
-        if let getter = HttpGetter(urlStr: "https://www.gkd.bayern.de"),
-           let str = getter.getHtmlString() {
-            
-            XCTAssertNotNil(getter)
-            XCTAssertNotNil(str)
-            XCTAssertTrue(str.contains("html"))
-            
-        } else {
-            XCTFail()
-        }
-    }
     
     func testExample() throws {
         
