@@ -113,7 +113,7 @@ class DashboardVM: ObservableObject {
     
     func onAppear() {
         
-        handler.setPeriodFrom(days: -30)
+        handler.setPeriodFrom(days: -1)
         
         // Air data
         publisher = handler.getAirPublisher()

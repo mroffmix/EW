@@ -31,14 +31,14 @@ struct CardView: View {
                             
                         Spacer()
                     }
-                    Spacer().frame(height:12)
+                    Spacer().frame(height: 6)
                     HStack {
                     Text(value)
                         .bold()
-                        .font(.system(size: 30))
+                        .font(.system(size: 20))
                         
                     }
-                }.frame(height: 80)
+                }.frame(height: 40)
             }
         }).buttonStyle(PlainButtonStyle())
         

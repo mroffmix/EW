@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import SwiftUICharts
+//import SwiftUICharts
 
 struct MainScreen: View {
     private let width =  UIScreen.main.bounds.width
     private let height =  UIScreen.main.bounds.height
-    
+    var surfersCounter = SurfersCounterVM()
     private let color1 = Color(red: 21 / 255, green: 46 / 255, blue: 84 / 255)
     private let color2 = Color(red: 35 / 255, green: 70 / 255, blue: 117 / 255)
     private let bgColor = Color.black 
@@ -20,6 +20,7 @@ struct MainScreen: View {
     @State var opacity: CGFloat = 0
     @State private var segment = 0
 
+    
     
     @ObservedObject var vm: DashboardVM
     
@@ -48,6 +49,8 @@ struct MainScreen: View {
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.lightGray], for: .normal)
         
         return ZStack {
+            
+            
             Circle()
                 .fill(RadialGradient(gradient: Gradient(colors: [color2, color1]), center: .center, startRadius: width/8, endRadius: width))
                 .frame(width: width*2)
@@ -83,6 +86,15 @@ struct MainScreen: View {
                     }.padding()
                     
                     Spacer()
+                    
+                    Button(action: {
+                        vm.onAppear()
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                            .font(.system(size: 25))
+                            .foregroundColor(.white)
+                    }).padding()
+                    
                 }.frame(width: width)
                 .opacity(Double(opacity))
                 .onAppear {
@@ -121,23 +133,34 @@ struct MainScreen: View {
                 .redacted(reason: vm.isLoading ? .placeholder : [])
                 
                 HStack {
+                    SurfersCounter(vm: surfersCounter, action: {
+                        
+                    })
+//                    CardView(title: "Surfers:", value: "\(position)", trend: vm.level.trend, action: {
+//
+//                    })
+                    
+                }.frame(width: width)
+                .redacted(reason: vm.isLoading ? .placeholder : [])
+                
+                HStack {
                     Spacer()
                 }.frame(width: width)
                 //.padding(.top, 15)
                 
                 Spacer()
                 if !vm.isLoading {
-                    Picker(selection: $segment, label: Text("")) {
-                                    Text("1 Day").tag(0)
-                                    Text("7 Days").tag(1)
-                                    Text("30 Days").tag(2)
-                    }.onChange(of: segment) { value in
-                        print(value)
-                    }
-                    .pickerStyle(SegmentedPickerStyle()
-                                )
-                    .padding(.horizontal, 8)
-                    .frame(width: width)
+//                    Picker(selection: $segment, label: Text("")) {
+//                                    Text("1 Day").tag(0)
+//                                    Text("7 Days").tag(1)
+//                                    Text("30 Days").tag(2)
+//                    }.onChange(of: segment) { value in
+//                        print(value)
+//                    }
+//                    .pickerStyle(SegmentedPickerStyle())
+//
+//                    .padding(.horizontal, 8)
+//                    .frame(width: width)
                     
                     VStack (alignment: .trailing, spacing: 2) {
                         Text("Max: \(strValue(vm.currentLegend.max)) \(vm.currentLegend.measure)")
@@ -155,7 +178,7 @@ struct MainScreen: View {
                                 .transition(.identity)
                                 .animation(Animation.easeOut(duration: 2))
                             
-                        }.frame(width: width, height: 220)
+                        }.frame(width: width, height: 170)
                         Divider().frame(width: width)
                         Text("Min: \(strValue(vm.currentLegend.min)) \(vm.currentLegend.measure)")
                             .font(.callout)

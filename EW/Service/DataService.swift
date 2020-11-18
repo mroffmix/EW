@@ -10,12 +10,13 @@ import Combine
 
 protocol WebServiceType {
     func get(for url: URL) -> AnyPublisher<String?, Error>
+    
 }
 
 class DataService: WebServiceType {
     
     func get(for url: URL) -> AnyPublisher<String?, Error> {
-       // print(url.absoluteURL)
+       
         var request: URLRequest = URLRequest(url: url)
         
         request.httpMethod = "GET"

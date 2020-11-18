@@ -11,14 +11,12 @@ import Combine
 
 struct EWPaths {
     private static let baseUrl = "https://www.gkd.bayern.de"
-    
     enum paths: String {
         case airUrl = "/de/meteo/lufttemperatur/isar/eichenried-200114/messwerte/tabelle"
         case waterUrl = "/de/fluesse/wassertemperatur/isar/muenchen-himmelreichbruecke-16515005/messwerte/tabelle"
         case waterLevel = "/de/fluesse/wasserstand/isar/muenchen-himmelreichbruecke-16515005/messwerte/tabelle"
         case presureUrl = "/de/fluesse/abfluss/isar/muenchen-himmelreichbruecke-16515005/messwerte/tabelle"
     }
-    
     static func getUrlStr(p: paths) -> String {
         return baseUrl + p.rawValue
     }
@@ -41,7 +39,21 @@ protocol DataHandler {
 
 class HttpGetter: DataHandler {
 
+    private var url: URL?
+    private var service: WebServiceType
+    private var period: Int = 0
     
+    init(service: WebServiceType) {
+        self.service = service
+    }
+    
+    func setUrl(urlStr: String) {
+        guard let URL = URL.init(string: urlStr) else {
+            return
+        }
+        url = URL
+    }
+
     func getAirPublisher() -> AnyPublisher<String?, Error> {
         setUrl(urlStr: EWPaths.getUrlStr(p: .airUrl))
         return getStringPublisher()
@@ -61,21 +73,8 @@ class HttpGetter: DataHandler {
         return getStringPublisher()
     }
     
-    private var url: URL?
-    private var service: WebServiceType
-    
-    private var period: Int = 0
-    
-    
-    init(service: WebServiceType) {
-        self.service = service
-    }
-    
-    func setUrl(urlStr: String) {
-        guard let URL = URL.init(string: urlStr) else {
-            return
-        }
-        url = URL
+    func setPeriodFrom(days:Int) {
+        self.period = days
     }
     
     private func getStringPublisher() -> AnyPublisher<String?, Error> {
@@ -85,10 +84,6 @@ class HttpGetter: DataHandler {
         } else {
             return Fail(error: AppError.impossible).eraseToAnyPublisher()
         }
-    }
-    
-    func setPeriodFrom(days:Int) {
-        self.period = days
     }
     
     private func getUrlWithPeriod() -> URL? {
