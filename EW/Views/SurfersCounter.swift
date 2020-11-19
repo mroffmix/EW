@@ -70,10 +70,15 @@ class SurfersCounterVM: ObservableObject {
     
     func getDateStr() -> String {
         
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
+        
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        
+        
+       // let formatter = DateFormatter()
+       // formatter.timeStyle = .short
         if let date = modified {
-            let str = formatter.string(from: date)
+            let str = formatter.localizedString(for: date, relativeTo: Date())
             return str
         } else {
             return ""
@@ -95,7 +100,9 @@ struct SurfersCounter: View {
         
         
         return Button(action: {
-            isEditing = true
+            isEditing.toggle()
+            vm.onAppear()
+           // vm.objectWillChange.send()
         }, label: {
             GroupBox{
                 HStack {
@@ -105,25 +112,17 @@ struct SurfersCounter: View {
                                 Text("Surfers on E2:")
                                     .bold()
                                     .font(.title2)
-                                Text("Updated at \(vm.getDateStr())")
-                                    .font(.callout)
+                                Text("Updated \(vm.getDateStr())")
+                                    .font(.system(size: 12))
                             }
                         }
                         Spacer()
-                        if !isEditing {
-                            
-                            Text("\(vm.amount)")
-                                .bold()
-                                .font(.title)
-                                .frame(width: 50)
-                                .padding(.trailing, 45)
-                                
-                        }
+
                     }.frame(height: 60)
                     
                     Spacer()
                     
-                    if isEditing {
+                    //if isEditing {
                         Picker(selection: $vm.amount, label: Text("")){
                             ForEach(0..<50){ i in
                                 Text("\(i)")
@@ -131,8 +130,10 @@ struct SurfersCounter: View {
                                     .font(.system(size: 25))
                             }
                         }
+                        
                         .frame(width: 80, height: 60, alignment: .center)
                         .clipped()
+                    
                         
                         Button(action: {
                             isEditing.toggle()
@@ -143,8 +144,8 @@ struct SurfersCounter: View {
                                 .foregroundColor(.yellow)
                                 .frame(width:30, height:30)
                                 .saturation(0.8)
-                        })
-                    }
+                        })//.isHidden(isEditing)
+                   // }
                 }
                 
             }

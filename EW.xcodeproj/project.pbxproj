@@ -25,6 +25,7 @@
 		09883FDC254B2178004B12C3 /* EWWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09883FDB254B2178004B12C3 /* EWWidgets.swift */; };
 		09883FDE254B217A004B12C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09883FDD254B217A004B12C3 /* Assets.xcassets */; };
 		09883FE2254B217A004B12C3 /* EWWidgetsExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09883FD4254B2178004B12C3 /* EWWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09B7B9262566949100851801 /* VIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7B9252566949100851801 /* VIew.swift */; };
 		09B870A1254C683B0050CCF2 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B870A0254C683B0050CCF2 /* MockData.swift */; };
 		09DA61C925482E2500B5051F /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA61C825482E2500B5051F /* MainScreen.swift */; };
 		09DA62382548662B00B5051F /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA62372548662B00B5051F /* Line.swift */; };
@@ -95,6 +96,7 @@
 		09883FDB254B2178004B12C3 /* EWWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EWWidgets.swift; sourceTree = "<group>"; };
 		09883FDD254B217A004B12C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09883FDF254B217A004B12C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09B7B9252566949100851801 /* VIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIew.swift; sourceTree = "<group>"; };
 		09B870A0254C683B0050CCF2 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		09DA61C825482E2500B5051F /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		09DA62372548662B00B5051F /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		09404C98254706E5008436E1 /* EW */ = {
 			isa = PBXGroup;
 			children = (
+				09B7B9242566948300851801 /* ext */,
 				09356A8D255AF4C2005ECC1D /* Model */,
 				092BE1962549B591002945B8 /* Service */,
 				09404C9D254706E7008436E1 /* Assets.xcassets */,
@@ -240,6 +243,14 @@
 				09883FDF254B217A004B12C3 /* Info.plist */,
 			);
 			path = EWWidgets;
+			sourceTree = "<group>";
+		};
+		09B7B9242566948300851801 /* ext */ = {
+			isa = PBXGroup;
+			children = (
+				09B7B9252566949100851801 /* VIew.swift */,
+			);
+			path = ext;
 			sourceTree = "<group>";
 		};
 		09DA62442548937C00B5051F /* Views */ = {
@@ -430,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B7B9262566949100851801 /* VIew.swift in Sources */,
 				09DA61C925482E2500B5051F /* MainScreen.swift in Sources */,
 				09404C9C254706E5008436E1 /* ContentView.swift in Sources */,
 				09404C9A254706E5008436E1 /* EWApp.swift in Sources */,
@@ -615,7 +627,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EW/Preview Content\"";
-				DEVELOPMENT_TEAM = 8GM57Z56RX;
+				DEVELOPMENT_TEAM = 4VHVE23XRC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -638,7 +650,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EW/Preview Content\"";
-				DEVELOPMENT_TEAM = 8GM57Z56RX;
+				DEVELOPMENT_TEAM = 4VHVE23XRC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
