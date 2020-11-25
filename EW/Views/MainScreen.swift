@@ -79,7 +79,7 @@ struct MainScreen: View {
                         
                         
                         Text("\(shortDateTime(vm.currentLegend.start)) - \(shortDateTime(vm.currentLegend.end))")
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.white.opacity(0.5))
                             .font(.callout)
                             //.padding(.horizontal)
                             .redacted(reason: vm.isLoading ? .placeholder : [])
@@ -136,9 +136,6 @@ struct MainScreen: View {
                     SurfersCounter(vm: surfersCounter, action: {
                         
                     })
-//                    CardView(title: "Surfers:", value: "\(position)", trend: vm.level.trend, action: {
-//
-//                    })
                     
                 }.frame(width: width)
                 .redacted(reason: vm.isLoading ? .placeholder : [])
@@ -146,7 +143,6 @@ struct MainScreen: View {
                 HStack {
                     Spacer()
                 }.frame(width: width)
-                //.padding(.top, 15)
                 
                 Spacer()
                 if !vm.isLoading {
@@ -173,12 +169,11 @@ struct MainScreen: View {
                         Divider().frame(width: width)
                         GeometryReader { geometry in
                             Line(data: ChartData(points: vm.showedData), frame: .constant(geometry.frame(in: .local)), showIndicator: .constant(false), minDataValue: .constant(nil), maxDataValue: .constant(nil))
-                                .padding(.vertical)
-                                //.opacity(0.9)
                                 .transition(.identity)
                                 .animation(Animation.easeOut(duration: 2))
                             
                         }.frame(width: width, height: 170)
+                        
                         Divider().frame(width: width)
                         Text("Min: \(strValue(vm.currentLegend.min)) \(vm.currentLegend.measure)")
                             .font(.callout)

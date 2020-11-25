@@ -17,36 +17,106 @@ struct Provider: TimelineProvider {
                     level: "140cm")
         
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry =
-            //SimpleEntry(date: Date())
-            SimpleEntry(date: Date(),
-                        air: "+2",
-                        water: "+12",
-                        level: "140cm")
-        completion(entry)
-    }
 
+        guard let url = URL.init(string: "https://isarmeasurements.azurewebsites.net/api/measurements")
+        else { return }
+        var request: URLRequest = URLRequest(url: url)
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.measureFormat)
+        
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { data, response, error in
+            
+            if error != nil || data == nil {
+                print("Client error!")
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                
+                return
+            }
+            
+            if let measurements = try? decoder.decode(Measurements.self, from: data!) {
+                
+                let temp = measurements.temperature?.first?.value
+                let level = measurements.level?.first?.value
+                //let pr = measurements.pressure?.first?.value
+                let air = measurements.airTemperature?.first?.value
+                
+                let entry =
+                    SimpleEntry(date: Date(),
+                                air: "\(air ?? 0)",
+                                water: "\(temp ?? 0)",
+                                level: "\(level ?? 0)")
+                
+                completion(entry)
+            }
+        }
+        .resume()
+
+    }
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        
         let currentDate = Date()
-        for offset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: 15 * offset, to: currentDate)!
-            let entry =
-                SimpleEntry(date: entryDate,
-                            air: "+2",
-                            water: "+12",
-                            level: "140cm")
+        let entryDate = Calendar.current.date(byAdding: .minute, value: 20, to: currentDate)!
+        
+        
+        guard let url = URL.init(string: "https://isarmeasurements.azurewebsites.net/api/measurements")
+        else { return }
+        var request: URLRequest = URLRequest(url: url)
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.measureFormat)
+        
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { data, response, error in
             
-                //SimpleEntry(date: entryDate)
-            entries.append(entry)
+            if error != nil || data == nil {
+                print("Client error!")
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                return
+            }
+            
+            if let measurements = try? decoder.decode(Measurements.self, from: data!) {
+                
+                let temp = measurements.temperature?.first?.value
+                let level = measurements.level?.first?.value
+                //let pr = measurements.pressure?.first?.value
+                let air = measurements.airTemperature?.first?.value
+                
+                let entry =
+                    SimpleEntry(date: entryDate,
+                                air: "\(air ?? 0) \(IndicatorType.air.getStr())",
+                                water: "\(temp ?? 0) \(IndicatorType.water.getStr())",
+                                level: "\(level ?? 0) \(IndicatorType.level.getStr())")
+                
+                entries.append(entry)
+                
+                let timeline = Timeline(entries: entries, policy: .atEnd)
+                completion(timeline)
+            }
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        .resume()
+        
+        
+        
     }
 }
 
@@ -67,7 +137,7 @@ struct SimpleEntry: TimelineEntry {
 
 struct EWWidgetsEntryView : View {
     var entry: Provider.Entry
-
+    
     var body: some View {
         
         ZStack {
@@ -85,14 +155,14 @@ struct EWWidgetsEntryView : View {
             }.padding()
         }
         
-
+        
     }
 }
 
 @main
 struct EWWidgets: Widget {
     let kind: String = "EWWidgets"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             EWWidgetsEntryView(entry: entry)
@@ -105,9 +175,9 @@ struct EWWidgets: Widget {
 struct EWWidgets_Previews: PreviewProvider {
     static var previews: some View {
         let entry = SimpleEntry(date: Date(),
-                                       air: "+2",
-                                       water: "+12",
-                                       level: "140cm")
+                                air: "+2",
+                                water: "+12",
+                                level: "140cm")
         
         return Group {
             

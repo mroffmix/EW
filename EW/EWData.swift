@@ -80,7 +80,10 @@ class HttpGetter: DataHandler {
     private func getStringPublisher() -> AnyPublisher<String?, Error> {
         
         if let urlWithPeriod = getUrlWithPeriod() {
-            return service.get(for: urlWithPeriod)
+            return  Just("").mapError({ _ in  AppError.impossible })
+                .eraseToAnyPublisher()
+            
+            //service.get(for: urlWithPeriod)
         } else {
             return Fail(error: AppError.impossible).eraseToAnyPublisher()
         }
@@ -110,8 +113,6 @@ class HttpGetter: DataHandler {
         } else  {
             fatalError("url is empty")
         }
-        
-        
     }
 }
 
@@ -147,30 +148,3 @@ class Parser {
     
 }
 
-class EWData {
-    
-    func getAirData() -> [Date:Float] {
-        return [:]
-    }
-    
-    func getWaterTempData() -> [Date:Float] {
-        return [:]
-    }
-    
-    func getWaterLevelData() -> [Date:Float] {
-        return [:]
-    }
-    
-    func getCurrentAir() -> Float {
-        return 0
-    }
-    
-    func getCurrentWaterTemp() -> Float {
-        return 0
-    }
-    
-    func getCurrentWaterLevel() -> Float {
-        return 0
-    }
-    
-}

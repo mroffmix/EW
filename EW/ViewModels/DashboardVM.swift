@@ -9,45 +9,6 @@ import Foundation
 import Combine
 import SwiftUI
 
-enum IndicatorType {
-    case air
-    case water
-    case level
-    case pressure
-    
-    func getStr() -> String {
-        switch self {
-        case .air:
-            return "°C"
-        case .water:
-            return "°C"
-        case .level:
-            return "cm"
-        case .pressure:
-            return "m³/s"
-        }
-    }
-}
-
-struct Indicator {
-    var value: Double = 0
-    var stringValue: String {
-        String(format: "%.1f", value)
-    }
-    var preValue: Double = 0
-    var trend: Bool {
-        value > preValue
-    }
-}
-
-struct LegendDescription {
-    var min: Double = 0
-    var max: Double = 0
-    var start: Date = Date()
-    var end: Date = Date()
-    var measure: String = ""
-}
-
 struct Charts {
     var month: [Double] = []
     var week: [Double] = []
@@ -79,7 +40,7 @@ class DashboardVM: ObservableObject {
     @Published var isLoading: Bool = true
     
     private var handler: DataHandler
-    private var publisher: AnyPublisher<String?, Error>?
+    private var publisher: AnyPublisher<Measurements, Error>?
     private var subscriptions = Set<AnyCancellable>()
     
     init(handler: DataHandler) {
@@ -113,99 +74,75 @@ class DashboardVM: ObservableObject {
     
     func onAppear() {
         
-        handler.setPeriodFrom(days: -1)
+        let service = DataService()
+        guard let url = URL.init(string: "https://isarmeasurements.azurewebsites.net/api/measurements") else {
+            return
+        }
         
-        // Air data
-        publisher = handler.getAirPublisher()
+        publisher = service.get(for: url)
+        
         publisher?.sink(receiveCompletion: { (error) in
             print("Request failed: \(String(describing: error))")
-        }, receiveValue: { [self] html in
+        }, receiveValue: { [self] (measurements) in
             
-            let parser = Parser(html: html!)
-            let data = parser.parse()
+            airData = measurements.airTemperature?.map {$0.value} ?? []
+            waterData = measurements.temperature?.map {$0.value} ?? []
+            waterLevelData = measurements.level?.map {$0.value} ?? []
+            pressureData = measurements.pressure?.map {$0.value} ?? []
             
-            (airData, airL) = getArray(data: data)
+            
+            (airData, airL) = getArray(data: measurements.airTemperature ?? [])
             airL.measure = IndicatorType.air.getStr()
-            air = getIndicator(data: data)
+            air = getIndicator(data: measurements.airTemperature ?? [])
+            
             showedData = airData
             currentLegend = airL
-            
             isLoading = false
             
-            
-        }).store(in: &subscriptions)
-        
-        // Water data
-        publisher = handler.getWaterPublisher()
-        publisher?.sink(receiveCompletion: { (error) in
-            print("Request failed: \(String(describing: error))")
-        }, receiveValue: { [self] html in
-            
-            let parser = Parser(html: html!)
-            let data = parser.parse()
-            (waterData, waterL) = getArray(data: data)
-            water = getIndicator(data: data)
+            (waterData, waterL) = getArray(data: measurements.temperature ?? [])
             waterL.measure = IndicatorType.water.getStr()
+            water = getIndicator(data: measurements.temperature ?? [])
             
-        }).store(in: &subscriptions)
-        
-        // Level Data
-        publisher = handler.getLevelPublisher()
-        publisher?.sink(receiveCompletion: { (error) in
-            print("Request failed: \(String(describing: error))")
-        }, receiveValue: { [self] html in
-            
-            let parser = Parser(html: html!)
-            let data = parser.parse()
-            (waterLevelData, levelL) = getArray(data: data)
-            level = getIndicator(data: data)
+            (waterLevelData, levelL) = getArray(data: measurements.level ?? [])
             levelL.measure = IndicatorType.level.getStr()
+            level = getIndicator(data: measurements.level ?? [])
+            
+            
+            (pressureData, pressureL) = getArray(data: measurements.pressure ?? [])
+            pressureL.measure = IndicatorType.pressure.getStr()
+            pressure = getIndicator(data: measurements.pressure ?? [])
+            
             
         }).store(in: &subscriptions)
         
-        // Preassure data
-        publisher = handler.getPreasurePublisher()
-        publisher?.sink(receiveCompletion: { (error) in
-            print("Request failed: \(String(describing: error))")
-        }, receiveValue: { [self] html in
-            
-            let parser = Parser(html: html!)
-            let data = parser.parse()
-            (pressureData, pressureL) = getArray(data: data)
-            pressure = getIndicator(data: data)
-            pressureL.measure = IndicatorType.pressure.getStr()
-            
-        }).store(in: &subscriptions)
     }
     
-    private func getArray(data:[Date : Float]) -> ([Double], LegendDescription) {
-        var result: [Double] = []
-        for (_,v) in Array(data).sorted(by: {$0.0 > $1.0}) {
-            result.append(Double(v))
-        }
+    private func getArray(data:[Measurement]) -> ([Double], LegendDescription) {
+        let result: [Double] = data.sorted(by: {$0.date > $1.date}).map {$0.value}
+        
         var l = LegendDescription()
         
-        l.start = Array(data.keys).min()!
-        l.end = Array(data.keys).max()!
-        l.max = result.max() ?? 0
-        l.min = result.min() ?? 0
+        l.start = data.max{ $0.value < $1.value }!.date
+        l.end = data.max{ $0.date < $1.date }!.date
+        l.max = data.max{ $0.value < $1.value }!.value
+        l.min = data.max{ $0.value > $1.value }!.value
         
-        return (Array(result.reversed()), l)
+        return (result, l)
     }
     
-    private func getIndicator(data:[Date : Float]) -> Indicator {
-        var copy = data
+    private func getIndicator(data:[Measurement]) -> Indicator {
+       // var copy = data
         
-        let lastDate = Array(copy.keys).max()!
-        let currValue = Double(copy[lastDate] ?? 0)
-        copy.removeValue(forKey: lastDate)
+//        let lastDate = Array(copy.keys).max()!
+//        let currValue = Double(copy[lastDate] ?? 0)
+//        copy.removeValue(forKey: lastDate)
+//
+//        let prevDate = Array(copy.keys).max()!
+//        let prevValue = Double(copy[prevDate] ?? 0)
+//
+        let second = data.count > 1 ? data[1].value : 0
         
-        let prevDate = Array(copy.keys).max()!
-        let prevValue = Double(copy[prevDate] ?? 0)
-        
-        copy.removeAll()
-        
-        return Indicator.init(value: currValue, preValue: prevValue)
+        return Indicator.init(value: data.first?.value ?? 0, preValue: second)
     }
     
 }

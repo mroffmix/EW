@@ -19,12 +19,12 @@ struct ViewWithIcon: View {
                 .frame(width: 20, height: 20, alignment: .center)
             
             
-            Image(systemName: trend ? "arrow.up.right" : "arrow.down.right")
-                .resizable()
-                .frame(width: 8, height: 8, alignment: .center)
-                .foregroundColor(.yellow)
-                .colorMultiply(.yellow)
-                .padding(.trailing, 8)
+//            Image(systemName: trend ? "arrow.up.right" : "arrow.down.right")
+//                .resizable()
+//                .frame(width: 8, height: 8, alignment: .center)
+//                .foregroundColor(.yellow)
+//                .colorMultiply(.yellow)
+//                .padding(.trailing, 8)
             
             Text(value)
                 .bold()

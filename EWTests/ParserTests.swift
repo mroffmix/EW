@@ -15,15 +15,15 @@ class ParserTests: XCTestCase {
 //        var getter = HttpGetter(urlStr: EWPaths.baseUrl + EWPaths.waterUrl)
 //        var parser = Parser(getter: getter!)
 //        XCTAssert(parser.parce().count > 0)
-//        
+//
 //        getter = HttpGetter(urlStr: EWPaths.baseUrl + EWPaths.airUrl)
 //        parser = Parser(getter: getter!)
 //        XCTAssert(parser.parce().count > 0)
-//        
+//
 //        getter = HttpGetter(urlStr: EWPaths.baseUrl + EWPaths.presureUrl)
 //        parser = Parser(getter: getter!)
 //        XCTAssert(parser.parce().count > 0)
-//        
+//
 //        getter = HttpGetter(urlStr: EWPaths.baseUrl + EWPaths.waterLevel)
 //        parser = Parser(getter: getter!)
 //        XCTAssert(parser.parce().count > 0)
